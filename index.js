@@ -10,19 +10,20 @@ let employees = 0
 function init() {
     const htmlPageStart = `<!DOCTYPE html>
     <html lang="en">
+    
     <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Document</title>
+      <link rel="stylesheet" href="assets/css/style.css">
     </head>
+    
     <body>
-      <header class="p-5 mb-4 header bg-light">
-        <div class="container">
-          <h1 class="display-4">My Team</h1>
-        </div>
+      <header>
+        <h1 class="header">My Team</h1>
       </header>
-      <main>`;
+      <main class="flex-row justify-center">`;
 
     fs.writeFile('./dist/index.html', htmlPageStart, (err) =>
     err ? console.log(err) : console.log('Successfully created index.html!')
@@ -162,8 +163,8 @@ function buildEmployeeTab(employee) {
     const uniqueInfo = buildEmployeeUnique(employee)
     
     return`
-        <div>
-            <div>
+        <article>
+            <div class="card col-5 col-md-3 col-lg-2">
                 <h2>${employee.getName()}</h2>
                 <h3>${employee.getRole()}</h3>
                     <div>
@@ -172,7 +173,7 @@ function buildEmployeeTab(employee) {
                         <p>${uniqueInfo}</p>
                     </div>
             </div>
-        </div>
+        </article>
     `
 }
 
