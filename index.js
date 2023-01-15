@@ -15,7 +15,7 @@ function init() {
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Document</title>
+      <title>Team Roster</title>
       <link rel="stylesheet" href="assets/css/style.css">
     </head>
     
@@ -78,6 +78,7 @@ function getOtherinfo(employeeType, data) {
                     type: 'input',
                     name: 'officenumber',
                     message: `What is this ${employeeType}'s Office Number?`,
+                    validate: val => /[a-z1-9]/gi.test(val),
                 },
             ])
             .then((val) => {
@@ -93,6 +94,7 @@ function getOtherinfo(employeeType, data) {
                     type: 'input',
                     name: 'github',
                     message: `What is this ${employeeType}'s Github Username?`,
+                    validate: val => /[a-z1-9]/gi.test(val),
                 },
             ])
             .then((val) => {
@@ -107,6 +109,7 @@ function getOtherinfo(employeeType, data) {
                 type: 'input',
                 name: 'school',
                 message: `What is this ${employeeType}'s school?`,
+                validate: val => /[a-z1-9]/gi.test(val),
             },
         ])
         .then((val) => {
@@ -126,16 +129,19 @@ function getEmployeeinfo(employeeType) {
                 type: 'input',
                 name: 'name',
                 message: `What is this ${employeeType}'s name?`,
+                validate: val => /[a-z1-9]/gi.test(val),
             },
             {
                 type: "input",
                 name: "id",
                 message: `What is this ${employeeType}'s ID?`,
+                validate: val => /[a-z1-9]/gi.test(val),
             },
             {
                 type: "input",
                 name: "email",
                 message: `What is this ${employeeType}'s email?`,
+                validate: val => /[a-z1-9]/gi.test(val),
             },
 
         ])
@@ -149,7 +155,7 @@ function buildEmployeeUnique(employee) {
         return `Office: ${employee.getOfficeNumber()}`
     }
     else if (employee.getRole() === 'Engineer') {
-        return `Github: ${employee.getGithub()}`
+        return `Github: <a href="https://github.com/${employee.getGithub()}">${employee.getGithub()}</a>`
     }
     else if (employee.getRole() === 'Intern') {
         return `School: ${employee.getSchool()}`
@@ -163,18 +169,17 @@ function buildEmployeeTab(employee) {
     const uniqueInfo = buildEmployeeUnique(employee)
     
     return`
-        <article>
-            <div class="card col-5 col-md-3 col-lg-2">
-                <h2>${employee.getName()}</h2>
-                <h3>${employee.getRole()}</h3>
-                    <div>
-                        <p>ID: ${employee.getId()}</p>
-                        <p>Email: ${employee.getEmail()}</p>
-                        <p>${uniqueInfo}</p>
-                    </div>
-            </div>
-        </article>
-    `
+    <div class=" card col-5 col-md-3 col-lg-2">
+    <div class="cardHeader">
+      <h2>${employee.getName()}</h2>
+      <h3>${employee.getRole()}</h3>
+    </div>
+    <div class="cardInfo">
+      <p>ID: ${employee.getId()}</p>
+      <p>Email: <a href = "mailto: ${employee.getEmail()}">${employee.getEmail()}</a></p>
+      <p>${uniqueInfo}</p>
+    </div>
+    </div>`
 }
 
 function addEmployee(employee) {
